@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fantasy Football Home Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&family=Jersey+10&family=Jersey+20&family=Jersey+25&family=VT323:wght@400;800&family=Permanent+Marker&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="sticky-stack">
+      <header class="site-header" id="site-header"></header>
+    </div>
+    <div class="ticker" id="ticker" hidden>
+      <div class="ticker-track" id="ticker-track"></div>
+    </div>
+    <main class="container">
+      <div class="page-hero">
+        <h1 class="page-header">This week in the league</h1>
+        <p id="main-blip">
+          What's up nerds. Welcome to the league site. Starting as a project for
+          an interview has now turned into a place for us to utilize for this
+          upcoming season. Theme is a work in progress and if you have
+          suggestions, let me know. This will be a blurb section for the week.
+          This section and the blog will be updated weekly. Matchup of the Week,
+          rosters, and standings ~should~ update in real time. Being my first
+          site with a backend pulling data from other sites there can be some
+          hickups. With all that said I hope all of your teams suck. See y'all
+          at the draft.
+        </p>
+      </div>
+      <section id="motw-section">
+        <div class="section-heading">
+          <h2 id="motw-heading">Matchup of the Week!</h2>
+          <span id="motw-week-pill" class="pill"></span>
+        </div>
+        <div id="motw-mount">
+          <div class="loading-state">Loading matchup…</div>
+        </div>
+      </section>
+      <section id="news-section">
+        <div class="section-heading">
+          <h2 id="league-news-heading">League News</h2>
+        </div>
+        <div class="news-grid" id="news-mount">
+          <div class="loading-state">Loading news…</div>
+        </div>
+      </section>
+    </main>
+    <script src="js/nav.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/home.js"></script>
+  </body>
+</html>

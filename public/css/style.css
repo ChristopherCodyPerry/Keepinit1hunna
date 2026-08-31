@@ -1,0 +1,813 @@
+:root {
+  --bg: #ffffff;
+  --bg-stripe: #40d7a0;
+  --surface: #49297e;
+  --surface-raised: #251442;
+  --surface-a: rgba(73, 41, 126, 0.75);
+  --surface-raised-a: rgba(37, 20, 66, 0.75);
+  --line: #fafaf7;
+
+  --chalk: #009193;
+  --chalk-dim: #fffffff;
+  --gold: #fdfb76;
+  --gold-dim: #dac28f;
+  --live: #0a0909;
+
+  --font-display: "Bungee", "Arial Narrow", sans-serif;
+  --font-body:
+    "Patrick Hand", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius: 6px;
+  --container: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: repeating-linear-gradient();
+  color: var(--chalk);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===========================================================================
+   Header + dropdown nav (top-left "scoreboard menu")
+=========================================================================== */
+.site-header {
+  position: relative;
+  z-index: 41;
+  top: 0;
+  z-index: 40;
+  background: #49297e;
+  backdrop-filter: blur(6px);
+  border-bottom: 2px solid transparent;
+  border-image: repeating-linear-gradient(
+      -45deg,
+      #00aeff,
+      #ff00b7 10px,
+      #ceeb28 10px,
+      #000000 20px
+    )
+    8;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 24px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.nav-menu {
+  position: relative;
+}
+
+.nav-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  color: #ffffff;
+  font-family: "Jersey 20";
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.nav-menu-btn:hover,
+.nav-menu-btn:focus-visible {
+  border-color: var(--gold);
+}
+
+.nav-menu-btn .bars {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.nav-menu-btn .bars span {
+  width: 14px;
+  height: 2px;
+  background: var(--gold);
+  display: block;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 240px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  padding: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 50;
+}
+
+.nav-dropdown.open {
+  display: flex;
+  z-index: 50;
+}
+
+.nav-dropdown-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+}
+
+.nav-link {
+  flex: 1;
+  display: block;
+  padding: 10px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: "Jersey 25";
+  letter-spacing: 0.1em;
+  z-index: 50;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: #009193;
+  color: var(--gold);
+}
+
+.nav-sub-btn {
+  background: #49297e;
+  border: 1px solid var(--line);
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 8px 9px;
+  font-family: "Jersey 20";
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 50;
+}
+
+.nav-sub-btn:hover {
+  color: #009193;
+  border-color: #009193;
+}
+
+.brand {
+  font-family: "Press Start 2P", var(--font-display);
+  letter-spacing: 0.04em;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--chalk);
+  text-decoration: none;
+  text-shadow: -1.5px 1px 0 #fdffff;
+  -webkit-text-stroke: 1px #000000;
+}
+
+.brand span {
+  color: var(--gold);
+}
+
+/* ===========================================================================
+   Ticker (league news headline strip)
+=========================================================================== */
+.ticker {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #251442;
+  color: #1a1305;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.ticker-track {
+  display: inline-block;
+  padding: 8px 0;
+  font-family: "Patrick Hand";
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  animation: ticker 55s linear infinite;
+}
+
+.ticker-track span {
+  margin-right: 48px;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===========================================================================
+   Page scaffolding
+=========================================================================== */
+.page-hero {
+  padding: 40px 0 8px;
+}
+
+.page-header {
+  font-family: "Jersey 10", var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e10086;
+  margin: 0 0 8px;
+  -webkit-text-stroke: 0.001px #49297e;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: 0.02em;
+  margin: 0 0 6px;
+  color: #49297e;
+  line-height: 1.02;
+  -webkit-text-stroke: 1px #e10086;
+}
+
+.page-subtitle {
+  color: var(--chalk-dim);
+  margin: 0 0 8px;
+  max-width: 60ch;
+}
+
+section {
+  padding: 32px 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.section-heading h2 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  margin: 0;
+  color: #49297e;
+}
+
+.section-heading .week-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#main-blip {
+  color: #49297e;
+  font-family: "Jersey 25";
+  letter-spacing: 0.02em;
+}
+#matchups-week-heading {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#matchups-week-heading .week-controls {
+  justify-content: center;
+}
+
+/* ===========================================================================
+   Buttons / controls
+=========================================================================== */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  color: #ffffff;
+  padding: 9px 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.btn.primary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #1a1305;
+  font-weight: 700;
+}
+
+.btn.primary:hover {
+  filter: brightness(1.08);
+  color: #1a1305;
+}
+
+select.select {
+  font-family: "Jersey 20";
+  font-size: 13px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  color: #ffffff;
+  padding: 9px 12px;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+select.select:hover {
+  color: var(--gold);
+}
+
+.select::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===========================================================================
+   Signature element: Scoreboard matchup card
+=========================================================================== */
+.scoreboard {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-raised), var(--surface));
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 28px clamp(16px, 4vw, 40px);
+  overflow: hidden;
+}
+
+.scoreboard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 38px,
+    rgba(230, 184, 78, 0.06) 38px,
+    rgba(230, 184, 78, 0.06) 40px
+  );
+  pointer-events: none;
+}
+
+.scoreboard-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(12px, 4vw, 32px);
+}
+
+.scoreboard-team {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scoreboard-team.right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.scoreboard-team .record {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+}
+
+.scoreboard-team .team-name {
+  font-family: "Patrick Hand";
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: clamp(20px, 3.4vw, 30px);
+  line-height: 1.05;
+}
+
+.scoreboard-team .owner {
+  font-size: 13px;
+  color: var(--chalk-dim);
+}
+
+.scoreboard-score {
+  font-family: "Patrick Hand";
+  font-size: clamp(28px, 6vw, 46px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  min-width: 1.6em;
+  text-align: center;
+}
+
+.scoreboard-vs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.scoreboard-divider {
+  width: 1px;
+  align-self: stretch;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--line) 0,
+    var(--line) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.scoreboard-vs-label {
+  font-family: "Patrick Hand";
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+}
+
+.scoreboard-footer {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-family: "Patrick Hand";
+  font-size: 12px;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--chalk-dim);
+}
+
+.pill.live {
+  color: var(--live);
+  border-color: var(--live);
+}
+
+.pill.live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--live);
+}
+
+/* ===========================================================================
+   News cards (ticket-stub style)
+=========================================================================== */
+.news-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.news-card {
+  position: relative;
+  background: #fffd84;
+  color: var(--chalk-dim);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.news-card .news-date {
+  font-family: "Patrick Hand";
+  font-size: 11px;
+  color: var(--chalk-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.news-card h3 {
+  margin: 6px 0 6px;
+  font-family: var(--font-display);
+  color: var(--chalk-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: 18px;
+}
+
+.news-card p {
+  margin: 0;
+  color: var(--chalk-dim);
+}
+
+/* ===========================================================================
+   Standings / matchup list tables
+=========================================================================== */
+.table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: #251442;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: #251442;
+}
+
+thead th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: #251442;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  color: #ffffff;
+  background-color: rgb(37 20 66/ 50%);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--surface);
+}
+
+td.num,
+th.num {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.standings-team-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.standings-team-link:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* Matchups grid (all matchups for a week) */
+.matchup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.matchup-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.matchup-card .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.matchup-card .row + .row {
+  border-top: 1px dashed var(--line);
+}
+
+.matchup-card .name {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.matchup-card .pts {
+  font-family: var(--font-mono);
+  color: var(--gold);
+}
+
+/* ===========================================================================
+   Teams page
+=========================================================================== */
+.team-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.roster-list {
+  display: grid;
+  gap: 8px;
+}
+
+.roster-row {
+  display: grid;
+  grid-template-columns: 2.4em 1fr auto;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+}
+
+.roster-row.starter {
+  border-left: 3px solid var(--gold);
+}
+
+.roster-row .pos {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.roster-row .player-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.roster-row .player-team {
+  font-family: "Patrick Hand";
+  font-size: 12px;
+  color: var(--chalk-dim);
+}
+
+/* ===========================================================================
+   Blog page
+=========================================================================== */
+.blog-post {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(18px, 4vw, 32px);
+  color: #49297e;
+}
+
+.blog-post .blog-meta {
+  font-family: "Jersey 25";
+  font-size: 18px;
+  color: #49297e;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.blog-post h2 {
+  font-family: "Jersey 25";
+  text-transform: uppercase;
+  font-size: clamp(22px, 4vw, 32px);
+  margin: 0 0 14px;
+}
+
+.blog-post .blog-body {
+  color: #49297e;
+  white-space: pre-wrap;
+  line-height: 1.7;
+}
+
+#blog-heading,
+#standings-heading,
+#team-heading,
+#motw-heading,
+#league-news-heading {
+  font-family: "Jersey 20";
+  letter-spacing: 0.2em;
+  color: #009193;
+  -webkit-text-stroke: 0.1px #01585a;
+}
+
+/* ===========================================================================
+   Utility states
+=========================================================================== */
+.empty-state,
+.loading-state,
+.error-state {
+  padding: 30px;
+  text-align: center;
+  color: var(--chalk-dim);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.error-state {
+  color: var(--live);
+  border-color: var(--live);
+}
+
+footer.site-footer {
+  margin-top: 40px;
+  padding: 24px;
+  text-align: center;
+  color: var(--chalk-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-top: 1px solid var(--line);
+}
+
+/* ===========================================================================
+   Responsive
+=========================================================================== */
+@media (max-width: 640px) {
+  .scoreboard-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .scoreboard-team.right {
+    align-items: center;
+    text-align: center;
+  }
+  .scoreboard-divider {
+    width: 100%;
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--line) 0,
+      var(--line) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+  }
+  .scoreboard-vs-label {
+    writing-mode: horizontal-tb;
+  }
+}

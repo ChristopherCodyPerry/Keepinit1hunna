@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keepin' it 1hunna — League Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Fredoka:wght@400;500;600;700&family=Jersey+10&family=Jersey+20&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500;600;700&family=Jersey+25&family=VT323:wght@400;800&family=Permanent+Marker&family=Poppins:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="sticky-stack">
+      <header class="site-header" id="site-header"></header>
+    </div>
+
+    <main class="container">
+      <div class="page-hero">
+        <h1 class="page-header">Weekly Recap</h1>
+      </div>
+
+      <section>
+        <div class="section-heading">
+          <h2 id="blog-heading"></h2>
+          <div class="week-controls">
+            <button class="nav-sub-btn" id="prev-week">&larr;</button>
+            <select class="select" id="week-select"></select>
+            <button class="nav-sub-btn" id="next-week">&rarr;</button>
+          </div>
+        </div>
+        <div id="blog-mount">
+          <div class="loading-state">Loading post…</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/nav.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/blog.js"></script>
+  </body>
+</html>
