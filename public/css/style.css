@@ -63,6 +63,12 @@ img {
   }
 }
 
+@media (max-width: 640px) {
+  .ticker-track {
+    animation-duration: 85s; /* slower loop on small screens */
+  }
+}
+
 /* ===========================================================================
    Header + dropdown nav (top-left "scoreboard menu")
 =========================================================================== */
@@ -572,12 +578,13 @@ select.select:hover {
 .table-wrap {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  overflow: hidden;
+  overflow-x: auto;
   background-color: #251442;
 }
 
 table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
   font-size: 14px;
   background-color: #251442;
