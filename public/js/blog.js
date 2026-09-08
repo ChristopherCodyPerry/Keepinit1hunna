@@ -1,6 +1,21 @@
 const MAX_WEEK = 18;
 let currentWeek = 1;
 
+app.post("/api/blog", (req, res) => {
+  const { week, title, body, password } = req.body || {};
+
+  if (password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: "Incorrect password" });
+  }
+
+  if (!week || !title || !body) {
+    return res
+      .status(400)
+      .json({ error: "week, title, and body are required" });
+  }
+  res.status(201).json(content.upsertBlogPost({ week, title, body }));
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
   renderHeader("blog");
   buildWeekSelect();

@@ -115,7 +115,12 @@ app.get("/api/blog/:week", (req, res) => {
 
 // Creates or replaces the post for a given week.
 app.post("/api/blog", (req, res) => {
-  const { week, title, body } = req.body || {};
+  const { week, title, body, password } = req.body || {};
+
+  if (password !== process.env.ADMIN_PASSWORD) {
+    return res.status(401).json({ error: "Incorrect password" });
+  }
+
   if (!week || !title || !body) {
     return res
       .status(400)

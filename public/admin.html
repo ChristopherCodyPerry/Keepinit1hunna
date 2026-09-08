@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Write Blog Post</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div class="sticky-stack">
+      <header class="site-header" id="site-header"></header>
+    </div>
+    <main class="container">
+      <div class="page-hero">
+        <h1 class="page-header">Write a Blog Post</h1>
+        <p>
+          Enter the week number, title, and body. Submitting a week that already
+          has a post will overwrite it.
+        </p>
+      </div>
+
+      <form id="blog-form" class="admin-form">
+        <label>
+          Password
+          <input type="password" id="password" name="password" required />
+        </label>
+
+        <label>
+          Week
+          <input type="number" id="week" name="week" min="1" required />
+        </label>
+        <label>
+          Week
+          <input type="number" id="week" name="week" min="1" required />
+        </label>
+
+        <label>
+          Title
+          <input type="text" id="title" name="title" required />
+        </label>
+
+        <label>
+          Body
+          <textarea id="body" name="body" rows="10" required></textarea>
+        </label>
+
+        <button type="submit">Save Post</button>
+        <div id="status-msg"></div>
+      </form>
+    </main>
+    <script src="js/nav.js"></script>
+    <script src="js/api.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () =>
+        renderHeader("admin"),
+      );
+
+      const form = document.getElementById("blog-form");
+      const statusMsg = document.getElementById("status-msg");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        statusMsg.textContent = "Saving…";
+
+        const password = document.getElementById("password").value;
+        const week = document.getElementById("week").value;
+        const title = document.getElementById("title").value;
+        const body = document.getElementById("body").value;
+
+        try {
+          const res = await fetch("/api/blog", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ week, title, body, password }),
+          });
+          const data = await res.json().catch(() => ({}));
+
+          if (!res.ok) {
+            throw new Error(data.error || `Request failed: ${res.status}`);
+          }
+
+          statusMsg.textContent = `Saved! Week ${data.week}: "${data.title}"`;
+          form.reset();
+        } catch (err) {
+          statusMsg.textContent = `Error: ${err.message}`;
+        }
+      });
+    </script>
+  </body>
+</html>

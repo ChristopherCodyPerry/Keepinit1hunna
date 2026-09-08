@@ -821,3 +821,46 @@ footer.site-footer {
     writing-mode: horizontal-tb;
   }
 }
+
+/* ===========================================================================
+   Admin Form
+=========================================================================== */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.admin-form input,
+.admin-form textarea {
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #ffffff;
+  color: var(--surface);
+}
+
+.admin-form button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  background: var(--surface-raised);
+}
