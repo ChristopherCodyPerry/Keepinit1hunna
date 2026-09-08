@@ -844,10 +844,10 @@ footer.site-footer {
   font-family: var(--font-body);
   font-size: 16px;
   padding: 10px;
-  border: 1px solid var(--line);
+  border: 1px solid #251442;
   border-radius: var(--radius);
   background: #ffffff;
-  color: var(--surface);
+  color: #49297e;
 }
 
 .admin-form button {
